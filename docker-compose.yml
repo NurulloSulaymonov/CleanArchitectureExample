@@ -1,0 +1,58 @@
+services:
+  todo_api:
+    image: nurullo/todo_api_2025
+    container_name: todo_api_2025
+    build:
+      context: ./
+      dockerfile: Clean.WebApi/Dockerfile
+    ports:
+      - "8085:8080"
+    volumes:
+      - uploads:/app/wwwroot/uploads
+    depends_on:
+      - todo_db
+      - todo_cache
+    links:
+      - todo_cache
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=todo_db;Port=5432;Database=AppDemoDb;Username=postgres;Password=12345
+    networks:
+      - todo-dev
+
+  todo_db:
+    image: postgres:17
+    container_name: todo_db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=todo_db_2025
+    ports:
+      - "5400:5432"
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    networks:
+      - todo-dev
+
+  todo_cache:
+    image: redis:7
+    container_name: todo_cache
+    restart: always
+    ports:
+      - "6385:6379"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - todo_cache_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - todo-dev
+
+networks:
+  todo-dev:
+    driver: bridge
+
+volumes:
+  postgresql-data:
+  todo_cache_data:
+  uploads:
