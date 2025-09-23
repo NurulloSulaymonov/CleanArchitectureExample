@@ -1,22 +1,19 @@
 
 using Clean.Application;
-using Clean.Application.Common.Behaviours;
-using Clean.Application.Services.Todo;
-using Clean.Application.Todos.Commands.CreateTodo;
+using Clean.Application.Abstractions;
 using Clean.Infrastructure;
 using Clean.Infrastructure.Data;
-using FluentValidation;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-
-var dapper = new DapperContext();
-var todo = new TodoService(dapper);
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// service from application 
 builder.Services.AddApplication();
+
+//services from infrastructure
+
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
@@ -27,9 +24,10 @@ var app = builder.Build();
 //migrate
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    var db = scope.ServiceProvider.GetRequiredService<IAppDbContext>();
+   await db.MigrateAsync();
 }
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

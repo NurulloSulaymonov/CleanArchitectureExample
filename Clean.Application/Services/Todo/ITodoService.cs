@@ -1,23 +1,11 @@
-using Clean.Application.Abstractions;
+using Clean.Application.Dtos.Todo;
 
 namespace Clean.Application.Services.Todo;
 
 public interface ITodoService
 {
-    
-}
+    public List<Domain.Entities.Todo> Get();
 
-public class TodoService : ITodoService
-{
-    private IDapperDbContext _dapper;
-    public TodoService(IDapperDbContext dapper)
-    {
-        _dapper = dapper;
-    }
+    public Task<GetTodoDto> AddTodo(CreateTodoDto model);
 
-    public List<Domain.Entities.Todo> Get()
-    {
-        // 
-        throw new Exception();
-    }
 }

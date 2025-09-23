@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Clean.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250903112347_init")]
+    [Migration("20250922105219_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -41,15 +41,18 @@ namespace Clean.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDone")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Todos");
+                    b.ToTable("todos", (string)null);
                 });
 #pragma warning restore 612, 618
         }

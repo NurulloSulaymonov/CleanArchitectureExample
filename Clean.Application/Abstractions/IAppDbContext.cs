@@ -7,4 +7,5 @@ public interface IAppDbContext
 {
     DbSet<Todo> Todos { get; }
     Task<int> SaveChangesAsync(CancellationToken ct = default);
+    Task MigrateAsync();
 }

@@ -1,28 +1,26 @@
-using Clean.Application.Todos.Commands.CreateTodo;
-using Clean.Application.Todos.Queries.GetTodos;
-using MediatR;
+using Clean.Application.Dtos.Todo;
+using Clean.Application.Services.Todo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TodosController : ControllerBase
+public class TodosController(ITodoService todoService) : ControllerBase
 {
-    private readonly IMediator _mediator;
-    public TodosController(IMediator mediator) => _mediator = mediator;
 
-    [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] bool? isDone)
+    [HttpGet("get")]
+    public IActionResult GetAll([FromQuery] bool? isDone)
     {
-        var result = await _mediator.Send(new GetTodosQuery(isDone));
+        var result = todoService.Get();
         return Ok(result);
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateTodoCommand command)
+    
+    [HttpPost("add")]
+    public async Task<IActionResult> AddTodo(CreateTodoDto model)
     {
-        var result = await _mediator.Send(command);
-        return CreatedAtAction(nameof(GetAll), new { id = result }, result);
+        var result = await todoService.AddTodo(model);
+        return Ok(result);
     }
+    
 }

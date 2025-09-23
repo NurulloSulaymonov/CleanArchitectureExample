@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{0CCF6B86-DE2D-4DF2-80F5-C3095C228949}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +37,9 @@ Global
 		{8BDA79BE-7016-4DF0-8772-5626FC183696}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BDA79BE-7016-4DF0-8772-5626FC183696}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BDA79BE-7016-4DF0-8772-5626FC183696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CCF6B86-DE2D-4DF2-80F5-C3095C228949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CCF6B86-DE2D-4DF2-80F5-C3095C228949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CCF6B86-DE2D-4DF2-80F5-C3095C228949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CCF6B86-DE2D-4DF2-80F5-C3095C228949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

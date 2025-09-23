@@ -38,15 +38,18 @@ namespace Clean.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDone")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Todos");
+                    b.ToTable("todos", (string)null);
                 });
 #pragma warning restore 612, 618
         }
