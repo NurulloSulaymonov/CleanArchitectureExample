@@ -8,5 +8,6 @@ public static class AddApplicationServices
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddScoped<ITodoService, TodoService>();
+        services.AddScoped<IEmailService, EmailService>();
     }
 }
